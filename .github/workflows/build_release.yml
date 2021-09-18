@@ -27,12 +27,17 @@ jobs:
           fetch-depth: 0
           path: rogue-rpg
 
+      - name: Set up GCC
+        uses: egor-tensin/setup-gcc@v1
+        with:
+          version: latest
+          platform: x64
+
       - name: Initialize
         working-directory: rogue-rpg
         run: |
-          sudo apt install gcc
-          sudo apt install make
-          sudo apt-get install libncurses5-dev libncursesw5-dev 
+          sudo apt install make -y
+          sudo apt-get install libncurses5-dev libncursesw5-dev -y
 
       - name: Build game
         working-directory: rogue-rpg
