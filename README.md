@@ -1,7 +1,7 @@
 # rogue-rpg
 ASCII-style Rogue RPG
 
-![Current State of the Game](doc/Rogue.png)
+![Current State of the Game](doc/Rogue.PNG)
 
 Based on the ncurses library.
 
