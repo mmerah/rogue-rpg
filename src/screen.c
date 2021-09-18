@@ -46,4 +46,13 @@ void printGameOver(void)
     clear();
     mvprintw(MAX_HEIGHT/2, MAX_WIDTH/2 - 10, "== GAME OVER ==");
     getch();
+    clear();
+}
+
+void printNextLevelScreen(void)
+{
+    clear();
+    mvprintw(MAX_HEIGHT/2, MAX_WIDTH/2 - 10, "** NEXT LEVEL **");
+    getch();
+    clear();
 }

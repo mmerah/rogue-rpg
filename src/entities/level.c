@@ -57,10 +57,6 @@ Room ** roomsSetUp()
         rooms[x] = createRoom(x, 4);
         drawRoom(rooms[x]);
     }
-    
-    //pathFind(&(rooms[0]->doors[3]->position), &(rooms[1]->doors[1]->position));
-    //connectDoors(rooms[0]->doors[3], rooms[2]->doors[1]);
-    //connectDoors(rooms[1]->doors[2], rooms[0]->doors[0]);
 
     return rooms;
 }
@@ -126,6 +122,7 @@ char ** saveLevelPositions()
 int checkPosition(Position * newPosition, Level * level)
 {
     Player * user;
+    Monster * monster;
     user = level->user;
 
     /* Check if a move on new coordinates is posible */
@@ -139,7 +136,12 @@ int checkPosition(Position * newPosition, Level * level)
         case 'X':
         case 'G':
         case 'T':
-            combat(user, getMonsterAt(newPosition, level->monsters), 1);
+            monster = getMonsterAt(newPosition, level->monsters);
+            combat(user, monster, 1);
+            if (monster->alive == 0)
+            {
+                level->numberOfMonstersAlive--;
+            }
         default:
             break;
     }
@@ -173,6 +175,7 @@ void addMonsters(Level * level)
     int x;
     level->monsters = malloc(sizeof(Monster *)* 6);
     level->numberOfMonsters = 0;
+    level->numberOfMonstersAlive = 0;
 
     for (x = 0; x < level->numberOfRooms; x++)
     {
@@ -181,6 +184,7 @@ void addMonsters(Level * level)
             level->monsters[level->numberOfMonsters] = selectMonster(level->level);
             setStartingPosition(level->monsters[level->numberOfMonsters], level->rooms[x]);
             level->numberOfMonsters++;
+            level->numberOfMonstersAlive++;
         }
     }
 }

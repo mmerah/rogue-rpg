@@ -14,6 +14,7 @@ typedef struct Level
     struct Room ** rooms;
     struct Monster ** monsters;
     int numberOfMonsters;
+    int numberOfMonstersAlive;
     struct Player * user;
 } Level;
 

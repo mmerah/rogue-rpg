@@ -49,6 +49,11 @@ void printInventory(Player * player);
  */
 void printGameOver(void);
 
+/**
+ * @brief Print the next level screen
+ */
+void printNextLevelScreen(void);
+
 /******************
  * COMBAT FUNCTIONS
  *****************/

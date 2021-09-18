@@ -31,7 +31,7 @@ void gameLoop(Game * game)
     if (game->currentLevel == 0)
     {
         /* Set up a map */
-        game->levels[game->currentLevel] = createLevel(1);
+        game->levels[game->currentLevel] = createLevel(game->currentLevel + 1);
         game->currentLevel++;
     }
     level = game->levels[game->currentLevel - 1];
@@ -54,6 +54,12 @@ void gameLoop(Game * game)
                 game->currentLevel = 0;
                 printGameOver();
                 return;
+            }
+            else if (level->numberOfMonstersAlive == 0)
+            {
+                printNextLevelScreen();
+                game->currentLevel++;
+                level = createLevel(game->currentLevel);
             }
         }
 
