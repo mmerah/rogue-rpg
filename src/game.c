@@ -27,11 +27,15 @@ void gameLoop(Game * game)
 {
     int ch = '\0';
     Level * level;
+    Player * player;
+
+    /* Set up a new player */
+    player = playerSetUp();
 
     if (game->currentLevel == 0)
     {
         /* Set up a map */
-        game->levels[game->currentLevel] = createLevel(game->currentLevel + 1);
+        game->levels[game->currentLevel] = createLevel(game->currentLevel + 1, player);
         game->currentLevel++;
     }
     level = game->levels[game->currentLevel - 1];
@@ -59,7 +63,7 @@ void gameLoop(Game * game)
             {
                 printNextLevelScreen();
                 game->currentLevel++;
-                level = createLevel(game->currentLevel);
+                level = createLevel(game->currentLevel, player);
             }
         }
 

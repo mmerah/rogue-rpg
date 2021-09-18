@@ -26,7 +26,7 @@ void printGameHub(Level * level)
     printw("    Gold: %d", level->user->gold);
     printw("    HP: %d(%d)", level->user->health, level->user->maxHealth);
     printw("    Attack: %d", level->user->attack);
-    printw("    Exp: %d", level->user->exp);
+    printw("    Rank: %d (XP: %d)", level->user->playerLevel, level->user->exp);
     printw("      ");
 }
 

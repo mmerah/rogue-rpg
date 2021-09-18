@@ -2,7 +2,7 @@
 #include "level.h"
 #include "utils.h"
 
-Level * createLevel(int level)
+Level * createLevel(int level, Player * user)
 {
     Level * newLevel;
     newLevel = malloc(sizeof(Level));
@@ -14,7 +14,7 @@ Level * createLevel(int level)
     newLevel->tiles = saveLevelPositions();
 
     /* Set up a player */
-    newLevel->user = playerSetUp();
+    newLevel->user = user;
     placePlayer(newLevel->rooms, newLevel->user);
 
     addMonsters(newLevel);

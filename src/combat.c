@@ -14,7 +14,7 @@ void combat(Player * player, Monster * monster, int order)
         else
         {
             killMonster(monster);
-            player->exp++;
+            handleReward(player, monster);
         }
     }
     /* Monster attacking */
@@ -26,4 +26,18 @@ void combat(Player * player, Monster * monster, int order)
             monster->health -= player->attack;
         }
     }
+}
+
+void handleReward(Player * player, Monster * monster)
+{
+    player->exp += monster->expReward;
+    if (player->exp >= thresholdLevel(player->playerLevel))
+    {
+        player->exp -= thresholdLevel(player->playerLevel);
+        player->playerLevel++;
+        player->maxHealth += maxHealthIncrease(player->playerLevel);
+        player->attack += attackIncrease(player->playerLevel);
+    }
+
+    player->gold += monster->goldReward;
 }

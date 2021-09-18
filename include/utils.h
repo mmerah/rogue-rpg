@@ -5,6 +5,7 @@
 #include "position.h"
 #include "player.h"
 #include "monster.h"
+#include "rankTable.h"
 
 /******************
  * PATH FINDING
@@ -67,5 +68,13 @@ void printNextLevelScreen(void);
  * 
  */
 void combat(Player * player, Monster * monster, int order);
+
+/**
+ * @brief Handle the reward post-combat
+ * 
+ * @param player Information on the winning player
+ * @param monster Information on the killed monster
+ */
+void handleReward(Player * player, Monster * monster);
 
 #endif /* UTILS_H */

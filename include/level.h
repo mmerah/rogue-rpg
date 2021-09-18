@@ -22,10 +22,11 @@ typedef struct Level
  * @brief Create a new Level
  * 
  * @param level Level number
+ * @param user Player created in the level
  * 
  * @return Level Pointer to a level structure
  */
-Level * createLevel(int level);
+Level * createLevel(int level, Player * user);
 
 /**
  * @brief Draw the level

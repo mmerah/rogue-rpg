@@ -13,6 +13,7 @@ typedef struct Player
     int gold;
     int exp;
     int numberItems;
+    int playerLevel;
     // Room * room;
     Item ** items;
 } Player;

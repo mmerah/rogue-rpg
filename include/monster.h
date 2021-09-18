@@ -14,6 +14,8 @@ typedef struct Monster
     int pathfinding;
     Position * position;
     int alive;
+    int expReward;
+    int goldReward;
 } Monster;
 
 /**
@@ -33,10 +35,13 @@ Monster * selectMonster(int level);
  * @param speed Speed stat of the monster
  * @param defence Defence stat of the monster
  * @param pathfinding Pathfinding algorithm of the monster
+ * @param expReward Reward of experience given by this monster
+ * @param goldReward Reward of gold given by this monster
  * @return Monster* Pointer to the monster created
  */
 Monster * createMonster(char symbol, int health, int attack, int speed,
-                        int defence, int pathfinding);
+                        int defence, int pathfinding, int expReward,
+                        int goldReward);
 
 /**
  * @brief Kill a monster
