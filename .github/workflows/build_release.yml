@@ -1,0 +1,56 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Build and Release the Game
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [ main ]
+    paths:
+      - src/**
+      - include/**
+  pull_request:
+    branches: [ main ]
+    paths:
+      - src/**
+      - include/**
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container: zephyrprojectrtos/ci:latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          path: rogue-rpg
+
+      - name: Initialize
+        working-directory: rogue-rpg
+        run: |
+          sudo apt install gcc
+          sudo apt install make
+          sudo apt-get install libncurses5-dev libncursesw5-dev 
+
+      - name: Build game
+        working-directory: rogue-rpg
+        run: |
+          sudo make
+          
+      - name: Archive firmware
+        uses: actions/upload-artifact@v2
+        with:
+          name: firmware
+          path: rogue-rpg/rogue
+          
+      - name: Automatic Releases
+        uses: marvinpinto/action-automatic-releases@v1.2.1
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          automatic_release_tag: "latest"
+          prerelease: true
+          title: "Development Build"
+          files: |
+            rogue-rpg/rogue
