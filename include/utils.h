@@ -44,6 +44,11 @@ void printGameHub(Level * level);
  */
 void printInventory(Player * player);
 
+/**
+ * @brief Print the game over screen
+ */
+void printGameOver(void);
+
 /******************
  * COMBAT FUNCTIONS
  *****************/

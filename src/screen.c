@@ -40,3 +40,10 @@ void printInventory(Player * player)
         printw(player->items[i]->string);
     }
 }
+
+void printGameOver(void)
+{
+    clear();
+    mvprintw(MAX_HEIGHT/2, MAX_WIDTH/2 - 10, "== GAME OVER ==");
+    getch();
+}

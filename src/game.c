@@ -52,6 +52,7 @@ void gameLoop(Game * game)
             if (level->user->health <= 0)
             {
                 game->currentLevel = 0;
+                printGameOver();
                 return;
             }
         }
