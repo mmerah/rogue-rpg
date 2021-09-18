@@ -16,6 +16,7 @@ typedef struct Monster
     int alive;
     int expReward;
     int goldReward;
+    int detectionRange;
 } Monster;
 
 /**
@@ -41,7 +42,7 @@ Monster * selectMonster(int level);
  */
 Monster * createMonster(char symbol, int health, int attack, int speed,
                         int defence, int pathfinding, int expReward,
-                        int goldReward);
+                        int goldReward, int detectionRange);
 
 /**
  * @brief Kill a monster

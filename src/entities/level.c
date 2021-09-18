@@ -152,15 +152,25 @@ int checkPosition(Position * newPosition, Level * level)
 void moveMonsters(Level * level)
 {
     int x;
+    int gapPlayerX = 0;
+    int gapPlayerY = 0;
+
     for (x = 0; x < level->numberOfMonsters; x++)
     {
+        gapPlayerX = abs(level->user->position->x - level->monsters[x]->position->x);
+        gapPlayerY = abs(level->user->position->y - level->monsters[x]->position->y);
+
         if (level->monsters[x]->alive == 0)
         {
             continue;
         }
+
         if (level->monsters[x]->pathfinding == 1)
         {
-
+            pathfindingRandom(level->monsters[x]->position);
+        }
+        else if (gapPlayerY > level->monsters[x]->detectionRange && gapPlayerX > level->monsters[x]->detectionRange )
+        {
             pathfindingRandom(level->monsters[x]->position);
         }
         else

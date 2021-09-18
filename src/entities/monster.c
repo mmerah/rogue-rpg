@@ -25,22 +25,22 @@ Monster * selectMonster(int level)
     switch (monster)
     {
         case 1: /* spider */
-            return createMonster('X', 2, 1, 1, 1, 1, 1, 0);
+            return createMonster('X', 2, 1, 1, 1, 1, 1, 0, 1);
 
         case 2: /* goblin */
-            return createMonster('G', 5, 3, 1, 1, 2, 2, 1);
+            return createMonster('G', 5, 3, 1, 1, 2, 2, 1, 4);
 
         case 3: /* troll */
-            return createMonster('T', 15, 5, 1, 1, 1, 5, 2);
+            return createMonster('T', 15, 5, 1, 1, 1, 5, 2, 1);
 
         default:
-            return createMonster('O', 15, 5, 1, 1, 1, 5, 1);
+            return createMonster('O', 15, 5, 1, 1, 1, 5, 1, 1);
     }
 }
 
 Monster * createMonster(char symbol, int health, int attack, int speed,
                         int defence, int pathfinding, int expReward,
-                        int goldReward)
+                        int goldReward, int detectionRange)
 {
     Monster * newMonster;
     newMonster = malloc(sizeof(Monster));
@@ -54,6 +54,7 @@ Monster * createMonster(char symbol, int health, int attack, int speed,
     newMonster->alive = 1;
     newMonster->expReward = expReward;
     newMonster->goldReward = goldReward;
+    newMonster->detectionRange = detectionRange;
 
     sprintf(newMonster->string, "%c", symbol);
 
