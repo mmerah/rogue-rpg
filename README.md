@@ -1,6 +1,8 @@
 # rogue-rpg
 ASCII-style Rogue RPG
 
+![Current State of the Game](doc/Rogue.png)
+
 Based on the ncurses library.
 
 RPG game with randomly generated levels. Useful for learning some object-oriented concepts in pure C style. Heavy use of structs, union, enum.
