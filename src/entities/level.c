@@ -169,7 +169,7 @@ void moveMonsters(Level * level)
         {
             pathfindingRandom(level->monsters[x]->position);
         }
-        else if (gapPlayerY > level->monsters[x]->detectionRange && gapPlayerX > level->monsters[x]->detectionRange )
+        else if (gapPlayerY > level->monsters[x]->detectionRange || gapPlayerX > level->monsters[x]->detectionRange )
         {
             pathfindingRandom(level->monsters[x]->position);
         }
