@@ -10,11 +10,19 @@ typedef struct Game
 } Game;
 
 /**
- * @brief Render the game
+ * @brief Render the current level
  * 
- * @param game Game informations
+ * @param level Level informations
  */
-void render(Game * game);
+void render(Level * level);
+
+/**
+ * @brief Execute the current level
+ * 
+ * @param level Level informations
+ * @param ch input from the player
+ */
+void levelLoop(Level * level, int ch);
 
 /**
  * @brief Execute the game
