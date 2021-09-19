@@ -37,7 +37,7 @@ Player * playerSetUp();
  * 
  * @return New Position calculated based on the input.
  */
-Position * handleInput(int input, Player * user);
+Position * handleInput(const int input, Player * user);
 
 /**
  * @brief Moves an entity to new coordinates
@@ -48,13 +48,13 @@ Position * handleInput(int input, Player * user);
  * 
  * @return 0 on success
  */
-int playerMove(Position * newPosition, Player * user, char ** level);
+int playerMove(const Position * newPosition, Player * user, char ** level);
 
 /**
  * @brief Draw the player
  * 
  * @param player Player informations
  */
-void drawPlayer(Player * player);
+void drawPlayer(const Player * player);
 
 #endif /* PLAYER_H */

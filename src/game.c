@@ -3,7 +3,7 @@
 #include "level.h"
 #include "utils.h"
 
-void render(Level * level)
+void render(const Level * level)
 {
     /* Redraw the level */
     clear();
@@ -19,7 +19,7 @@ void levelLoop(Level *level, int ch)
     newPosition = handleInput(ch, level->user);
     checkPosition(newPosition, level);
     moveMonsters(level);
-
+    
     render(level);
 }
 

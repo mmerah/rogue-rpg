@@ -1,7 +1,7 @@
 #include "rogue.h"
 #include "monster.h"
 
-Monster * selectMonster(int level)
+Monster * selectMonster(const int level)
 {
     int monster;
     switch (level)
@@ -25,22 +25,23 @@ Monster * selectMonster(int level)
     switch (monster)
     {
         case 1: /* spider */
-            return createMonster('X', 2, 1, 1, 1, 1, 1, 0, 1);
+            return createMonster('X', 2, 1, 1, 1, 1, 1, 0, 2);
 
         case 2: /* goblin */
             return createMonster('G', 5, 3, 1, 1, 2, 2, 1, 4);
 
         case 3: /* troll */
-            return createMonster('T', 15, 5, 1, 1, 1, 5, 2, 1);
+            return createMonster('T', 15, 5, 1, 1, 2, 5, 2, 3);
 
         default:
-            return createMonster('O', 15, 5, 1, 1, 1, 5, 1, 1);
+            return createMonster('O', 15, 5, 1, 1, 2, 5, 1, 2);
     }
 }
 
-Monster * createMonster(char symbol, int health, int attack, int speed,
-                        int defence, int pathfinding, int expReward,
-                        int goldReward, int detectionRange)
+Monster * createMonster(const char symbol, const int health, const int attack,
+                        const int speed, const int defence,
+                        const int pathfinding, const int expReward,
+                        const int goldReward, const int detectionRange)
 {
     Monster * newMonster;
     newMonster = malloc(sizeof(Monster));
@@ -119,27 +120,42 @@ int pathfindingRandom(Position * position)
     return 0;
 }
 
-int pathfindingSeek(Position * start, Position * destination)
+int pathfindingSeek(Position * start, const Position * destination)
 {
+    int distX = abs(start->x - destination->x);
+    int distY = abs(start->y - destination->y);
+
     /* Step left */
-    if ((abs((start->x - 1) - destination->x) < abs(start->x - destination->x)) && (mvinch(start->y, start->x - 1) == '.'))
+    if ((abs((start->x - 1) - destination->x) < distX) && (mvinch(start->y, start->x - 1) == '.'))
     {
-        start->x = start->x - 1;
+        if (distX > 0)
+        {
+            start->x = start->x - 1;
+        }
     }
     /* Step right */
-    else if ((abs((start->x + 1) - destination->x) < abs(start->x - destination->x)) && (mvinch(start->y, start->x + 1) == '.'))
+    else if ((abs((start->x + 1) - destination->x) < distX) && (mvinch(start->y, start->x + 1) == '.'))
     {
-        start->x = start->x + 1;
+        if (distX > 0)
+        {
+            start->x = start->x + 1;
+        }
     }
     /* Step down */
-    else if ((abs((start->y + 1) - destination->y) < abs(start->y - destination->y)) && (mvinch(start->y + 1, start->x) == '.'))
+    else if ((abs((start->y + 1) - destination->y) < distY) && (mvinch(start->y + 1, start->x) == '.'))
     {
-        start->y = start->y + 1;
+        if (distY > 0)
+        {
+            start->y = start->y + 1;
+        }
     }
     /* Step up */
-    else if ((abs((start->y - 1) - destination->y) < abs(start->y - destination->y)) && (mvinch(start->y - 1, start->x) == '.'))
+    else if ((abs((start->y - 1) - destination->y) < distY) && (mvinch(start->y - 1, start->x) == '.'))
     {
-        start->y = start->y - 1;
+        if (distY > 0)
+        {
+            start->y = start->y - 1;
+        }
     }
     else
     {
@@ -149,7 +165,7 @@ int pathfindingSeek(Position * start, Position * destination)
     return 0;
 }
 
-Monster * getMonsterAt(Position * position, Monster ** monsters)
+Monster * getMonsterAt(const Position * position, Monster ** monsters)
 {
     int x;
     for (x = 0; x < 6; x++)
@@ -163,7 +179,7 @@ Monster * getMonsterAt(Position * position, Monster ** monsters)
     return NULL;
 }
 
-void drawMonster(Monster * monster)
+void drawMonster(const Monster * monster)
 {
     if (monster->alive)
     {

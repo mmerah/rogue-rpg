@@ -1,7 +1,7 @@
 #include "rogue.h"
 #include "room.h"
 
-Room * createRoom(int grid, int numberOfDoors)
+Room * createRoom(const int grid, const int numberOfDoors)
 {
     int i;
     Room * newRoom;
@@ -75,7 +75,7 @@ Room * createRoom(int grid, int numberOfDoors)
     return newRoom;
 }
 
-int drawRoom(Room * room)
+int drawRoom(const Room * room)
 {
     int x;
     int y;
@@ -110,13 +110,13 @@ int drawRoom(Room * room)
     return 0;
 }
 
-void placePlayer(Room ** rooms, Player * user)
+void placePlayer(const Room ** rooms, Player * user)
 {
     user->position->x = rooms[3]->position.x + 1;
     user->position->y = rooms[3]->position.y + 1;
 }
 
-void placeItems(Room ** rooms, Item ** items, int numberOfItems)
+void placeItems(const Room ** rooms, Item ** items, const int numberOfItems)
 {
     int roomChosen;
 
@@ -125,13 +125,13 @@ void placeItems(Room ** rooms, Item ** items, int numberOfItems)
         /* Choose a random room */
         roomChosen = rand() % 6;
         /* Random spot in the room */
-        items[i]->position->x = (rand() % (rooms[roomChosen]->height - 2)) + rooms[roomChosen]->position.y + 1;
+        items[i]->position->x = (rand() % (rooms[roomChosen]->width - 2)) + rooms[roomChosen]->position.x + 1;
         items[i]->position->y = (rand() % (rooms[roomChosen]->height - 2)) + rooms[roomChosen]->position.y + 1;
     }
 }
 
 void setStartingPosition(Monster * monster, Room * room)
 {
-    monster->position->x = (rand() % (room->height - 2)) + room->position.y + 1;
+    monster->position->x = (rand() % (room->width - 2)) + room->position.x + 1;
     monster->position->y = (rand() % (room->height - 2)) + room->position.y + 1;
 }

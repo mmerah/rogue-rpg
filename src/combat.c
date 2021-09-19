@@ -1,7 +1,7 @@
 #include "rogue.h"
 #include "utils.h"
 
-void combat(Player * player, Monster * monster, int order)
+void combat(Player * player, Monster * monster, const int order)
 {
     /* Player attacking */
     if (order == 1)
@@ -28,7 +28,7 @@ void combat(Player * player, Monster * monster, int order)
     }
 }
 
-void handleReward(Player * player, Monster * monster)
+void handleReward(Player * player, const Monster * monster)
 {
     player->exp += monster->expReward;
     if (player->exp >= thresholdLevel(player->playerLevel))

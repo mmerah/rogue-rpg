@@ -37,7 +37,7 @@ typedef struct Item
  * @param health Health value of the sword
  * @return Item* Object item
  */
-Item * createSword(int attack, int health);
+Item * createSword(const int attack, const int health);
 
 /**
  * @brief Create a Potion object
@@ -45,7 +45,7 @@ Item * createSword(int attack, int health);
  * @param healing Healing value of the potion
  * @return Item* Object item
  */
-Item * createPotion(int healing);
+Item * createPotion(const int healing);
 
 /**
  * @brief Generate all items on a level
@@ -55,7 +55,7 @@ Item * createPotion(int healing);
  * 
  * @return int Number of item generated
  */
-int generateItems(int level, Item ** items);
+int generateItems(const int level, Item ** items);
 
 /**
  * @brief Draw the item on the level
@@ -72,6 +72,6 @@ void drawItem(Item * item);
  * @param numberOfItems Number of items in the level
  * @return Item* Pointer to the item at the position
  */
-Item * getItemAt(Position * position, Item ** items, int numberOfItems);
+Item * getItemAt(Position * position, Item ** items, const int numberOfItems);
 
 #endif /* ITEM_H */

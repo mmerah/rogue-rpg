@@ -20,7 +20,7 @@ void screenSetUp()
     srand(time(NULL));
 }
 
-void printGameHub(Level * level)
+void printGameHub(const Level * level)
 {
     mvprintw(25, 0, "    Level: %d", level->level);
     printw("    Gold: %d", level->user->gold);

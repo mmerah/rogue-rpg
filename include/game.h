@@ -14,7 +14,7 @@ typedef struct Game
  * 
  * @param level Level informations
  */
-void render(Level * level);
+void render(const Level * level);
 
 /**
  * @brief Execute the current level

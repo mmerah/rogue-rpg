@@ -2,7 +2,7 @@
 #include "item.h"
 #include "itemTable.h"
 
-Item * createSword(int attack, int health)
+Item * createSword(const int attack, const int health)
 {
     Item * item = malloc(sizeof(Item));
     item->type = WEAPON_TYPE;
@@ -19,7 +19,7 @@ Item * createSword(int attack, int health)
     return item;
 }
 
-Item * createPotion(int healing)
+Item * createPotion(const int healing)
 {
     Item * item = malloc(sizeof(Item));
     item->type = POTION_TYPE;
@@ -35,7 +35,7 @@ Item * createPotion(int healing)
     return item;
 }
 
-int generateItems(int level, Item ** items)
+int generateItems(const int level, Item ** items)
 {
     int i = 0;
     for (i = 0; i < POTION_PER_LEVEL; i++)
