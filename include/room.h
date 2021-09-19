@@ -42,6 +42,15 @@ int drawRoom(Room * room);
 void placePlayer(Room ** rooms, Player * user);
 
 /**
+ * @brief Place the items in the rooms
+ * 
+ * @param rooms List of rooms
+ * @param items List of items
+ * @param numberOfItems Number of items
+ */
+void placeItems(Room ** rooms, Item ** items, int numberOfItems);
+
+/**
  * @brief Set the Starting Position of the monster
  * 
  * @param monster Monster to set in the room

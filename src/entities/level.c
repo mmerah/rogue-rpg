@@ -7,6 +7,7 @@ Level * createLevel(int level, Player * user)
     Level * newLevel;
     newLevel = malloc(sizeof(Level));
 
+    /* Basic level creation */
     newLevel->level = level;
     newLevel->numberOfRooms = 6;
     newLevel->rooms = roomsSetUp();
@@ -17,6 +18,12 @@ Level * createLevel(int level, Player * user)
     newLevel->user = user;
     placePlayer(newLevel->rooms, newLevel->user);
 
+    /* Set up the objects in the level */
+    newLevel->items = malloc(sizeof(Item *));
+    newLevel->numberOfItems = generateItems(newLevel->level, newLevel->items);
+    placeItems(newLevel->rooms, newLevel->items, newLevel->numberOfItems);
+
+    /* Set up the monsters in the level */
     addMonsters(newLevel);
 
     return newLevel;
@@ -33,6 +40,12 @@ void drawLevel(Level * level)
         {
             mvaddch(y, x, level->tiles[y][x]);
         }
+    }
+
+    /* Printing items */
+    for (i = 0; i < level->numberOfItems; i++)
+    {
+        drawItem(level->items[i]);
     }
 
     /* Printing monsters */
@@ -123,6 +136,7 @@ int checkPosition(Position * newPosition, Level * level)
 {
     Player * user;
     Monster * monster;
+    Item * item;
     user = level->user;
 
     /* Check if a move on new coordinates is posible */
@@ -142,6 +156,9 @@ int checkPosition(Position * newPosition, Level * level)
             {
                 level->numberOfMonstersAlive--;
             }
+        case 'P':
+            item = getItemAt(newPosition, level->items, level->numberOfItems);
+            user->health += item->item.potion->healing;
         default:
             break;
     }

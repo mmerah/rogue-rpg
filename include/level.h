@@ -5,6 +5,7 @@
 #include "monster.h"
 #include "player.h"
 #include "room.h"
+#include "item.h"
 
 typedef struct Level
 {
@@ -16,6 +17,8 @@ typedef struct Level
     int numberOfMonsters;
     int numberOfMonstersAlive;
     struct Player * user;
+    struct Item ** items;
+    int numberOfItems;
 } Level;
 
 /**
