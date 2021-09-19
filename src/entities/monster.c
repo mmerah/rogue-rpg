@@ -122,25 +122,40 @@ int pathfindingRandom(Position * position)
 
 int pathfindingSeek(Position * start, const Position * destination)
 {
+    int distX = abs(start->x - destination->x);
+    int distY = abs(start->y - destination->y);
+
     /* Step left */
-    if ((abs((start->x - 1) - destination->x) < abs(start->x - destination->x)) && (mvinch(start->y, start->x - 1) == '.'))
+    if ((abs((start->x - 1) - destination->x) < distX) && (mvinch(start->y, start->x - 1) == '.'))
     {
-        start->x = start->x - 1;
+        if (distX > 0)
+        {
+            start->x = start->x - 1;
+        }
     }
     /* Step right */
-    else if ((abs((start->x + 1) - destination->x) < abs(start->x - destination->x)) && (mvinch(start->y, start->x + 1) == '.'))
+    else if ((abs((start->x + 1) - destination->x) < distX) && (mvinch(start->y, start->x + 1) == '.'))
     {
-        start->x = start->x + 1;
+        if (distX > 0)
+        {
+            start->x = start->x + 1;
+        }
     }
     /* Step down */
-    else if ((abs((start->y + 1) - destination->y) < abs(start->y - destination->y)) && (mvinch(start->y + 1, start->x) == '.'))
+    else if ((abs((start->y + 1) - destination->y) < distY) && (mvinch(start->y + 1, start->x) == '.'))
     {
-        start->y = start->y + 1;
+        if (distY > 0)
+        {
+            start->y = start->y + 1;
+        }
     }
     /* Step up */
-    else if ((abs((start->y - 1) - destination->y) < abs(start->y - destination->y)) && (mvinch(start->y - 1, start->x) == '.'))
+    else if ((abs((start->y - 1) - destination->y) < distY) && (mvinch(start->y - 1, start->x) == '.'))
     {
-        start->y = start->y - 1;
+        if (distY > 0)
+        {
+            start->y = start->y - 1;
+        }
     }
     else
     {

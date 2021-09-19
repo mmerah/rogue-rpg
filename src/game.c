@@ -19,7 +19,7 @@ void levelLoop(Level *level, int ch)
     newPosition = handleInput(ch, level->user);
     checkPosition(newPosition, level);
     moveMonsters(level);
-
+    
     render(level);
 }
 
