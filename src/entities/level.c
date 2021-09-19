@@ -16,12 +16,12 @@ Level * createLevel(const int level, Player * user)
 
     /* Set up a player */
     newLevel->user = user;
-    placePlayer(newLevel->rooms, newLevel->user);
+    placePlayer((const Room **)newLevel->rooms, newLevel->user);
 
     /* Set up the objects in the level */
     newLevel->items = malloc(sizeof(Item *));
     newLevel->numberOfItems = generateItems(newLevel->level, newLevel->items);
-    placeItems(newLevel->rooms, newLevel->items, newLevel->numberOfItems);
+    placeItems((const Room **)newLevel->rooms, newLevel->items, newLevel->numberOfItems);
 
     /* Set up the monsters in the level */
     addMonsters(newLevel);
@@ -156,10 +156,12 @@ int checkPosition(Position * newPosition, Level * level)
             {
                 level->numberOfMonstersAlive--;
             }
+            break;
         case 'P':
             item = getItemAt(newPosition, level->items, level->numberOfItems);
             user->health += item->item.potion->healing;
             item->notPicked = 0;
+            break;
         default:
             break;
     }
