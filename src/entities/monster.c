@@ -25,16 +25,16 @@ Monster * selectMonster(const int level)
     switch (monster)
     {
         case 1: /* spider */
-            return createMonster('X', 2, 1, 1, 1, 1, 1, 0, 1);
+            return createMonster('X', 2, 1, 1, 1, 1, 1, 0, 2);
 
         case 2: /* goblin */
             return createMonster('G', 5, 3, 1, 1, 2, 2, 1, 4);
 
         case 3: /* troll */
-            return createMonster('T', 15, 5, 1, 1, 1, 5, 2, 1);
+            return createMonster('T', 15, 5, 1, 1, 2, 5, 2, 3);
 
         default:
-            return createMonster('O', 15, 5, 1, 1, 1, 5, 1, 1);
+            return createMonster('O', 15, 5, 1, 1, 2, 5, 1, 2);
     }
 }
 
