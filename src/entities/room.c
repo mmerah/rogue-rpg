@@ -125,13 +125,13 @@ void placeItems(const Room ** rooms, Item ** items, const int numberOfItems)
         /* Choose a random room */
         roomChosen = rand() % 6;
         /* Random spot in the room */
-        items[i]->position->x = (rand() % (rooms[roomChosen]->height - 2)) + rooms[roomChosen]->position.y + 1;
+        items[i]->position->x = (rand() % (rooms[roomChosen]->width - 2)) + rooms[roomChosen]->position.x + 1;
         items[i]->position->y = (rand() % (rooms[roomChosen]->height - 2)) + rooms[roomChosen]->position.y + 1;
     }
 }
 
 void setStartingPosition(Monster * monster, Room * room)
 {
-    monster->position->x = (rand() % (room->height - 2)) + room->position.y + 1;
+    monster->position->x = (rand() % (room->width - 2)) + room->position.x + 1;
     monster->position->y = (rand() % (room->height - 2)) + room->position.y + 1;
 }
