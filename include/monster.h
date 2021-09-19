@@ -25,7 +25,7 @@ typedef struct Monster
  * @param level Informations on the level
  * @return Monster* Pointer to the monster created
  */
-Monster * selectMonster(int level);
+Monster * selectMonster(const int level);
 
 /**
  * @brief Create a Monster object
@@ -40,10 +40,10 @@ Monster * selectMonster(int level);
  * @param goldReward Reward of gold given by this monster
  * @return Monster* Pointer to the monster created
  */
-Monster * createMonster(char symbol, int health, int attack, int speed,
-                        int defence, int pathfinding, int expReward,
-                        int goldReward, int detectionRange);
-
+Monster * createMonster(const char symbol, const int health, const int attack,
+                        const int speed, const int defence,
+                        const int pathfinding, const int expReward,
+                        const int goldReward, const int detectionRange);
 /**
  * @brief Kill a monster
  * 
@@ -58,7 +58,7 @@ void killMonster(Monster * monster);
  * @param destination Destination of the object
  * @return int 0 on success
  */
-int pathfindingSeek(Position * start, Position * destination);
+int pathfindingSeek(Position * start, const Position * destination);
 
 /**
  * @brief Pathfinding algorithm random
@@ -76,13 +76,13 @@ int pathfindingRandom(Position * position);
  * @param monsters List of monsters in the level
  * @return Monster* Monster at the position checked
  */
-Monster * getMonsterAt(Position * position, Monster ** monsters);
+Monster * getMonsterAt(const Position * position, Monster ** monsters);
 
 /**
  * @brief Draw a monster
  * 
  * @param monster Monster informations
  */
-void drawMonster(Monster * monster);
+void drawMonster(const Monster * monster);
 
 #endif /* MONSTER_H */

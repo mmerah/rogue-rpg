@@ -1,7 +1,7 @@
 #include "rogue.h"
 #include "room.h"
 
-Room * createRoom(int grid, int numberOfDoors)
+Room * createRoom(const int grid, const int numberOfDoors)
 {
     int i;
     Room * newRoom;
@@ -75,7 +75,7 @@ Room * createRoom(int grid, int numberOfDoors)
     return newRoom;
 }
 
-int drawRoom(Room * room)
+int drawRoom(const Room * room)
 {
     int x;
     int y;
@@ -110,13 +110,13 @@ int drawRoom(Room * room)
     return 0;
 }
 
-void placePlayer(Room ** rooms, Player * user)
+void placePlayer(const Room ** rooms, Player * user)
 {
     user->position->x = rooms[3]->position.x + 1;
     user->position->y = rooms[3]->position.y + 1;
 }
 
-void placeItems(Room ** rooms, Item ** items, int numberOfItems)
+void placeItems(const Room ** rooms, Item ** items, const int numberOfItems)
 {
     int roomChosen;
 

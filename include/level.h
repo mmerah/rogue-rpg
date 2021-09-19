@@ -29,14 +29,14 @@ typedef struct Level
  * 
  * @return Level Pointer to a level structure
  */
-Level * createLevel(int level, Player * user);
+Level * createLevel(const int level, Player * user);
 
 /**
  * @brief Draw the level
  * 
  * @param level Current level informations
  */
-void drawLevel(Level * level);
+void drawLevel(const Level * level);
 
 /**
  * @brief Set up a map on screen

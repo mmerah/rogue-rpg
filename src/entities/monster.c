@@ -1,7 +1,7 @@
 #include "rogue.h"
 #include "monster.h"
 
-Monster * selectMonster(int level)
+Monster * selectMonster(const int level)
 {
     int monster;
     switch (level)
@@ -38,9 +38,10 @@ Monster * selectMonster(int level)
     }
 }
 
-Monster * createMonster(char symbol, int health, int attack, int speed,
-                        int defence, int pathfinding, int expReward,
-                        int goldReward, int detectionRange)
+Monster * createMonster(const char symbol, const int health, const int attack,
+                        const int speed, const int defence,
+                        const int pathfinding, const int expReward,
+                        const int goldReward, const int detectionRange)
 {
     Monster * newMonster;
     newMonster = malloc(sizeof(Monster));
@@ -119,7 +120,7 @@ int pathfindingRandom(Position * position)
     return 0;
 }
 
-int pathfindingSeek(Position * start, Position * destination)
+int pathfindingSeek(Position * start, const Position * destination)
 {
     /* Step left */
     if ((abs((start->x - 1) - destination->x) < abs(start->x - destination->x)) && (mvinch(start->y, start->x - 1) == '.'))
@@ -149,7 +150,7 @@ int pathfindingSeek(Position * start, Position * destination)
     return 0;
 }
 
-Monster * getMonsterAt(Position * position, Monster ** monsters)
+Monster * getMonsterAt(const Position * position, Monster ** monsters)
 {
     int x;
     for (x = 0; x < 6; x++)
@@ -163,7 +164,7 @@ Monster * getMonsterAt(Position * position, Monster ** monsters)
     return NULL;
 }
 
-void drawMonster(Monster * monster)
+void drawMonster(const Monster * monster)
 {
     if (monster->alive)
     {

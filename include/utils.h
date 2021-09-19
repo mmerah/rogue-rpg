@@ -36,7 +36,7 @@ void screenSetUp();
  * 
  * @param level Informations on the level
  */
-void printGameHub(Level * level);
+void printGameHub(const Level * level);
 
 /**
  * @brief Print the inventory of the player
@@ -67,7 +67,7 @@ void printNextLevelScreen(void);
  * @param order Attacking order
  * 
  */
-void combat(Player * player, Monster * monster, int order);
+void combat(Player * player, Monster * monster, const int order);
 
 /**
  * @brief Handle the reward post-combat
@@ -75,6 +75,6 @@ void combat(Player * player, Monster * monster, int order);
  * @param player Information on the winning player
  * @param monster Information on the killed monster
  */
-void handleReward(Player * player, Monster * monster);
+void handleReward(Player * player, const Monster * monster);
 
 #endif /* UTILS_H */

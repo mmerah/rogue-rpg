@@ -23,7 +23,7 @@ Player * playerSetUp()
     return newPlayer;
 }
 
-Position * handleInput(int input, Player * user)
+Position * handleInput(const int input, Player * user)
 {
     Position * newPosition;
     newPosition = malloc(sizeof(Position));
@@ -65,7 +65,7 @@ Position * handleInput(int input, Player * user)
     return newPosition;
 }
 
-int playerMove(Position * newPosition, Player * user, char ** level)
+int playerMove(const Position * newPosition, Player * user, char ** level)
 {
     /* Update player position to new coordinates */
     user->position->y = newPosition->y;
@@ -74,7 +74,7 @@ int playerMove(Position * newPosition, Player * user, char ** level)
     return 0;
 }
 
-void drawPlayer(Player * player)
+void drawPlayer(const Player * player)
 {
     mvprintw(player->position->y, player->position->x, "@");
     move(player->position->y, player->position->x);

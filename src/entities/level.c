@@ -2,7 +2,7 @@
 #include "level.h"
 #include "utils.h"
 
-Level * createLevel(int level, Player * user)
+Level * createLevel(const int level, Player * user)
 {
     Level * newLevel;
     newLevel = malloc(sizeof(Level));
@@ -29,7 +29,7 @@ Level * createLevel(int level, Player * user)
     return newLevel;
 }
 
-void drawLevel(Level * level)
+void drawLevel(const Level * level)
 {
     int x, y, i;
 
@@ -159,6 +159,7 @@ int checkPosition(Position * newPosition, Level * level)
         case 'P':
             item = getItemAt(newPosition, level->items, level->numberOfItems);
             user->health += item->item.potion->healing;
+            item->notPicked = 0;
         default:
             break;
     }

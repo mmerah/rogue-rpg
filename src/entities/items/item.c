@@ -9,7 +9,7 @@ void drawItem(Item * item)
     }
 }
 
-Item * getItemAt(Position * position, Item ** items, int numberOfItems)
+Item * getItemAt(Position * position, Item ** items, const int numberOfItems)
 {
     int x;
     for (x = 0; x < numberOfItems; x++)
