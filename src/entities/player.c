@@ -15,6 +15,7 @@ Player * playerSetUp()
     newPlayer->numberItems = 0;
     newPlayer->maxHealth = 20;
     newPlayer->playerLevel = 1;
+    newPlayer->detectionRange = 10;
 
     /* Give player starting weapon */
     newPlayer->items[newPlayer->numberItems] = createSword(1, 20);

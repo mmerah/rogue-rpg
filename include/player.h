@@ -16,6 +16,7 @@ typedef struct Player
     int playerLevel;
     // Room * room;
     Item ** items;
+    int detectionRange;
 } Player;
 
 /******************

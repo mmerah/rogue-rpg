@@ -33,25 +33,36 @@ void drawLevel(const Level * level)
 {
     int x, y, i;
 
+    int areaDisplayed = level->user->detectionRange;
+
     /* Printing tiles */
     for (y = 0; y < MAX_HEIGHT; y++)
     {
         for (x = 0; x < MAX_WIDTH; x++)
         {
-            mvaddch(y, x, level->tiles[y][x]);
+            if ((abs(y - level->user->position->y) < areaDisplayed) && (abs(x - level->user->position->x) < areaDisplayed))
+            {
+                mvaddch(y, x, level->tiles[y][x]);
+            }
         }
     }
 
     /* Printing items */
     for (i = 0; i < level->numberOfItems; i++)
     {
-        drawItem(level->items[i]);
+        if ((abs(level->items[i]->position->y - level->user->position->y) < areaDisplayed) && (abs(level->items[i]->position->x - level->user->position->x) < areaDisplayed))
+        {
+            drawItem(level->items[i]);
+        }
     }
 
     /* Printing monsters */
     for (i = 0; i < level->numberOfMonsters; i++)
     {
-        drawMonster(level->monsters[i]);
+        if ((abs(level->monsters[i]->position->y - level->user->position->y) < areaDisplayed) && (abs(level->monsters[i]->position->x - level->user->position->x) < areaDisplayed))
+        {
+            drawMonster(level->monsters[i]);
+        }
     }
 
     /* Printing player */
