@@ -168,14 +168,10 @@ int checkPosition(Position * newPosition, Level * level)
                 level->numberOfMonstersAlive--;
             }
             break;
-        case 'P':
+        case '=':
             item = getItemAt(newPosition, level->items, level->numberOfItems);
-            user->health += item->item.potion->healing;
-            if (user->health > user->maxHealth)
-            {
-                user->health = user->maxHealth;
-            }
             item->notPicked = 0;
+            itemPickManagement(user, item);
             break;
         default:
             break;

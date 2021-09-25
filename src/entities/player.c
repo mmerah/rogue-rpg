@@ -80,3 +80,26 @@ void drawPlayer(const Player * player)
     mvprintw(player->position->y, player->position->x, "@");
     move(player->position->y, player->position->x);
 }
+
+void itemPickManagement(Player * user, Item * item)
+{
+    switch (item->type)
+    {
+        case WEAPON_TYPE:
+            break;
+        
+        case ARMOR_TYPE:
+            break;
+
+        case RING_TYPE:
+            break;
+
+        case POTION_TYPE:
+            user->health += item->item.potion->healing;
+            if (user->health > user->maxHealth)
+            {
+                user->health = user->maxHealth;
+            }
+            break;
+    }    
+}

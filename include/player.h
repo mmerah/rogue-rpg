@@ -58,4 +58,12 @@ int playerMove(const Position * newPosition, Player * user, char ** level);
  */
 void drawPlayer(const Player * player);
 
+/**
+ * @brief Manage the user and the item he just picked
+ * 
+ * @param user Pointer to the plyer that picked the item
+ * @param item Pointer to the item that was picked
+ */
+void itemPickManagement(Player * user, Item * item);
+
 #endif /* PLAYER_H */
