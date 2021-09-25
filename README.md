@@ -14,5 +14,5 @@ RPG game with randomly generated levels. Useful for learning some object-oriente
 - ~~The seeking monster only move randomly when the plyer is not in the same room~~
 - ~~The player has a detection range~~
 - Item (weapons, potions, armor) can be looted, equipped/used, found in chests **[In progress]**
-- Some pop-ups for better understanding of what is going on
+- Some pop-ups for better understanding of what is going on **[In progress]**
 - And more ...
