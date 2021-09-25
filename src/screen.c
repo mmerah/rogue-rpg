@@ -30,6 +30,16 @@ void printGameHub(const Level * level)
     printw("      ");
 }
 
+void printGameLog(Level * level)
+{
+    mvprintw(26, 50, "Game Log: ");
+    for (int i = 0; i < EVENT_LOG_SIZE; i++)
+    {
+        mvprintw(27 + i, 50, level->messages[i]);
+    }
+    updateLogBuffer(level->messages);
+}
+
 void printInventory(Player * player)
 {
     int i;
@@ -55,4 +65,20 @@ void printNextLevelScreen(void)
     mvprintw(MAX_HEIGHT/2, MAX_WIDTH/2 - 10, "** NEXT LEVEL **");
     getch();
     clear();
+}
+
+void updateLogBuffer(char buffer[EVENT_LOG_SIZE][MESSAGE_SIZE])
+{
+    /* Pile update */
+    for (int i = EVENT_LOG_SIZE; i > 0; i--)
+    {
+        strcpy(buffer[i], buffer[i - 1]);
+    }
+    strcpy(buffer[0], "");
+}
+
+void addMessageToLog(char * message, char buffer[EVENT_LOG_SIZE][MESSAGE_SIZE])
+{
+    updateLogBuffer(buffer);
+    strcpy(buffer[0], message);
 }

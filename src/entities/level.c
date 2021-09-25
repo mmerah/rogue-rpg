@@ -26,6 +26,9 @@ Level * createLevel(const int level, Player * user)
     /* Set up the monsters in the level */
     addMonsters(newLevel);
 
+    /* Log the start of the game */
+    addMessageToLog("Game started", newLevel->messages);
+
     return newLevel;
 }
 
@@ -166,12 +169,14 @@ int checkPosition(Position * newPosition, Level * level)
             if (monster->alive == 0)
             {
                 level->numberOfMonstersAlive--;
+                addMessageToLog("Killed a monster", level->messages);
             }
             break;
         case '=':
             item = getItemAt(newPosition, level->items, level->numberOfItems);
             item->notPicked = 0;
             itemPickManagement(user, item);
+            addMessageToLog("Picked a potion", level->messages);
             break;
         default:
             break;

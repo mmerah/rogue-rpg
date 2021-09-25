@@ -19,6 +19,7 @@ typedef struct Level
     struct Player * user;
     struct Item ** items;
     int numberOfItems;
+    char messages[EVENT_LOG_SIZE][MESSAGE_SIZE];
 } Level;
 
 /**
