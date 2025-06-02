@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -Wall -lmenu -lncurses -I$(IDIR) -g
+CFLAGS = -Wall -I$(CONDA_PREFIX)/include -L$(CONDA_PREFIX)/lib -lmenu -lncurses -I$(IDIR) -g
 
 IDIR = ./include/
 SRCDIR = ./src/
