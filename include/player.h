@@ -3,6 +3,10 @@
 
 #include "position.h"
 #include "item.h"
+#include "weapon.h"
+#include "armor.h"
+
+#define MAX_PLAYER_ITEMS 10
 
 typedef struct Player
 {
@@ -10,13 +14,16 @@ typedef struct Player
     int health;
     int maxHealth;
     int attack;
+    int defense;
     int gold;
     int exp;
-    int numberItems;
     int playerLevel;
     // Room * room;
-    Item ** items;
     int detectionRange;
+    Weapon* equippedWeapon;
+    Armor* equippedArmor;
+    Item* inventory[MAX_PLAYER_ITEMS];
+    int inventoryCount;
 } Player;
 
 /******************

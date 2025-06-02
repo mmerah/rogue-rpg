@@ -48,6 +48,14 @@ Item * createSword(const int attack, const int health);
 Item * createPotion(const int healing);
 
 /**
+ * @brief Create a Armor object
+ *
+ * @param defense Defense value of the armor
+ * @return Item* Object item
+ */
+Item * createArmor(const int defense);
+
+/**
  * @brief Generate all items on a level
  * 
  * @param level Current level index

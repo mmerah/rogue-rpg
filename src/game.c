@@ -2,6 +2,9 @@
 #include "game.h"
 #include "level.h"
 #include "utils.h"
+#include "screen.h" // For getInventorySelection and addMessageToLog
+#include "item.h"   // For ItemType, WEAPON_TYPE, ARMOR_TYPE
+#include <stdio.h>  // For sprintf
 
 void render(Level * level)
 {
@@ -49,7 +52,36 @@ void gameLoop(Game * game)
         }
         else if (ch == 'i' || ch == 'I')
         {
-            printInventory(level->user);
+            int selectedSlot = getInventorySelection(level->user);
+            clear(); // Clear the inventory screen
+            // render(level); // Render immediately to show game state before message, or after
+
+            if (selectedSlot != -1) { // -1 indicates exit, not an error
+                if (selectedSlot < level->user->inventoryCount && level->user->inventory[selectedSlot] != NULL) {
+                    Item* itemToEquip = level->user->inventory[selectedSlot];
+                    char message[100]; // Buffer for log messages
+
+                    if (itemToEquip->type == WEAPON_TYPE) {
+                        level->user->equippedWeapon = itemToEquip->item.weapon;
+                        sprintf(message, "Equipped %s.", itemToEquip->string);
+                        addMessageToLog(message, level->messages);
+                    } else if (itemToEquip->type == ARMOR_TYPE) {
+                        level->user->equippedArmor = itemToEquip->item.armor;
+                        sprintf(message, "Equipped %s.", itemToEquip->string);
+                        addMessageToLog(message, level->messages);
+                    } else {
+                        sprintf(message, "Cannot equip %s (not a weapon or armor).", itemToEquip->string);
+                        addMessageToLog(message, level->messages);
+                    }
+                } else {
+                    // This case should ideally not be reached if getInventorySelection is robust
+                    char errorMessage[100];
+                    sprintf(errorMessage, "Invalid item selection: slot %d.", selectedSlot);
+                    addMessageToLog(errorMessage, level->messages);
+                }
+            }
+            // Always re-render after inventory interaction to show changes or log messages
+            render(level);
         }
         else
         {

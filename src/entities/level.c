@@ -1,6 +1,9 @@
 #include "rogue.h"
 #include "level.h"
 #include "utils.h"
+#include "itemTable.h" // For MAX_ITEMS_PER_LEVEL
+#include <string.h>    // For strcpy
+#include <stdio.h>     // For sprintf
 
 Level * createLevel(const int level, Player * user)
 {
@@ -19,7 +22,7 @@ Level * createLevel(const int level, Player * user)
     placePlayer((const Room **)newLevel->rooms, newLevel->user);
 
     /* Set up the objects in the level */
-    newLevel->items = malloc(sizeof(Item *));
+    newLevel->items = malloc(sizeof(Item *) * MAX_ITEMS_PER_LEVEL); // Use MAX_ITEMS_PER_LEVEL
     newLevel->numberOfItems = generateItems(newLevel->level, newLevel->items);
     placeItems((const Room **)newLevel->rooms, newLevel->items, newLevel->numberOfItems);
 
@@ -174,9 +177,20 @@ int checkPosition(Position * newPosition, Level * level)
             break;
         case '=':
             item = getItemAt(newPosition, level->items, level->numberOfItems);
-            item->notPicked = 0;
-            itemPickManagement(user, item);
-            addMessageToLog("Picked a potion", level->messages);
+            if (item != NULL) { // Ensure item exists before trying to use it
+                char itemName[256];
+                strcpy(itemName, item->string); // Copy name before itemPickManagement might free it (for potions)
+
+                itemPickManagement(user, item); // Handles item effect, inventory, and notPicked for non-potions
+
+                // For potions, item is freed in itemPickManagement. For others, it's added to inventory.
+                // item->notPicked is set to 0 within itemPickManagement for WEAPON_TYPE, ARMOR_TYPE, RING_TYPE.
+                // For POTION_TYPE, item->notPicked is also set to 0 before being freed.
+
+                char message[300];
+                sprintf(message, "Picked up %s.", itemName);
+                addMessageToLog(message, level->messages);
+            }
             break;
         default:
             break;

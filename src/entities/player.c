@@ -6,20 +6,34 @@ Player * playerSetUp()
     Player * newPlayer;
     newPlayer = malloc(sizeof(Player));
     newPlayer->position = malloc(sizeof(Position));
-    newPlayer->items = malloc(sizeof(Item *));
+    // Removed: newPlayer->items = malloc(sizeof(Item *));
 
     newPlayer->health = 20;
     newPlayer->attack = 1;
+    newPlayer->defense = 0; // Initialize base defense
     newPlayer->gold = 0;
     newPlayer->exp = 0;
-    newPlayer->numberItems = 0;
+    // Removed: newPlayer->numberItems = 0;
+    newPlayer->inventoryCount = 0; // Initialize inventory count
     newPlayer->maxHealth = 20;
     newPlayer->playerLevel = 1;
     newPlayer->detectionRange = 10;
+    newPlayer->equippedWeapon = NULL;
+    newPlayer->equippedArmor = NULL; // Initialize equipped armor
+
+    // Initialize inventory slots to NULL
+    for (int i = 0; i < MAX_PLAYER_ITEMS; i++) {
+        newPlayer->inventory[i] = NULL;
+    }
 
     /* Give player starting weapon */
-    newPlayer->items[newPlayer->numberItems] = createSword(1, 20);
-    newPlayer->numberItems++;
+    Item* startingSword = createSword(1, 20);
+    if (newPlayer->inventoryCount < MAX_PLAYER_ITEMS) {
+        newPlayer->inventory[newPlayer->inventoryCount++] = startingSword;
+        // Equip the starting weapon
+        newPlayer->equippedWeapon = startingSword->item.weapon;
+    }
+    // Removed: newPlayer->numberItems++;, was associated with old items array
 
     return newPlayer;
 }
@@ -86,12 +100,16 @@ void itemPickManagement(Player * user, Item * item)
     switch (item->type)
     {
         case WEAPON_TYPE:
-            break;
-        
         case ARMOR_TYPE:
-            break;
-
-        case RING_TYPE:
+        case RING_TYPE: // Rings will also go to inventory for now
+            if (user->inventoryCount < MAX_PLAYER_ITEMS) {
+                user->inventory[user->inventoryCount++] = item;
+                item->notPicked = 0; // Mark as picked up
+                // TODO: Add a game log message: e.g., "Picked up Sword"
+            } else {
+                // TODO: Inventory full message - game log needed
+                // Item remains on the ground (item->notPicked remains 1)
+            }
             break;
 
         case POTION_TYPE:
@@ -100,6 +118,16 @@ void itemPickManagement(Player * user, Item * item)
             {
                 user->health = user->maxHealth;
             }
+            item->notPicked = 0; // Potion is consumed and removed from map
+            // Free the potion data and the item itself
+            if (item->item.potion != NULL) {
+                free(item->item.potion);
+                item->item.potion = NULL;
+            }
+            // free(item->position); // Position is part of item, not separately allocated for item itself in createPotion
+            // item->position = NULL;
+            free(item);
+            item = NULL;
             break;
     }    
 }

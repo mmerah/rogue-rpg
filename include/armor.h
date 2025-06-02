@@ -1,18 +1,11 @@
 #ifndef ARMOR_H
 #define ARMOR_H
 
-typedef enum
-{
-    LEATHER_TYPE,
-    IRON_TYPE,
-    MYTHRIL_TYPE
-} ArmorType;
-
 typedef struct Armor
 {
-    ArmorType type;
-    int defence;
-    int health;
+    int defense;
+    // char name[50]; // Optional: if we want named armors
+    // int durability; // Optional: for more complex mechanics
 } Armor;
 
 #endif /* ARMOR_H */
