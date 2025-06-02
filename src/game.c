@@ -53,13 +53,13 @@ void gameLoop(Game * game)
         else if (ch == 'i' || ch == 'I')
         {
             int selectedSlot = getInventorySelection(level->user);
-            clear(); // Clear the inventory screen
-            // render(level); // Render immediately to show game state before message, or after
+            clear();
+            // render(level); // This was a note about alternative rendering strategy
 
             if (selectedSlot != -1) { // -1 indicates exit, not an error
                 if (selectedSlot < level->user->inventoryCount && level->user->inventory[selectedSlot] != NULL) {
                     Item* itemToEquip = level->user->inventory[selectedSlot];
-                    char message[100]; // Buffer for log messages
+                    char message[100];
 
                     if (itemToEquip->type == WEAPON_TYPE) {
                         level->user->equippedWeapon = itemToEquip->item.weapon;

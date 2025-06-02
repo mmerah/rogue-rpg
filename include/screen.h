@@ -2,7 +2,7 @@
 #define SCREEN_H
 
 #include "player.h" // For Player*
-#include "level.h"  // For Level* if render is called from here (not planned for now)
+#include "level.h"
 
 /**
  * @brief Displays the player's inventory and handles item selection for equipping.
@@ -15,10 +15,6 @@
  *         or -1 if the user chose to exit or no valid selection was made.
  */
 int getInventorySelection(Player* player);
-
-// Declaration for addMessageToLog if it's to be centralized here.
-// For now, assuming game.c can access it or it's in rogue.h
-// void addMessageToLog(char * message, char (*logBuffer)[MESSAGE_SIZE]);
 
 
 #endif /* SCREEN_H */

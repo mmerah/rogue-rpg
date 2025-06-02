@@ -25,7 +25,7 @@ Item * createArmor(const int defense)
     Item * item = malloc(sizeof(Item));
     item->type = ARMOR_TYPE;
     item->notPicked = 1;
-    item->position = malloc(sizeof(Position)); // Remember to set position when spawning
+    item->position = malloc(sizeof(Position));
     strcpy(item->string, "Armor"); // Generic name for now
 
     Armor * armor = malloc(sizeof(Armor));
@@ -55,7 +55,7 @@ Item * createPotion(const int healing)
 int generateItems(const int level, Item ** items)
 {
     int currentItemIndex = 0;
-    int i; // loop iterator
+    int i;
 
     // Generate Potions
     for (i = 0; i < POTION_PER_LEVEL; i++)
@@ -84,5 +84,5 @@ int generateItems(const int level, Item ** items)
         }
     }
 
-    return currentItemIndex; // Return the total number of items generated
+    return currentItemIndex;
 }

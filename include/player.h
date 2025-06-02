@@ -18,7 +18,6 @@ typedef struct Player
     int gold;
     int exp;
     int playerLevel;
-    // Room * room;
     int detectionRange;
     Weapon* equippedWeapon;
     Armor* equippedArmor;

@@ -97,25 +97,23 @@ int getInventorySelection(Player* player) {
     }
 
     mvprintw(y_pos + box_height - 2, x_pos + 1, "Enter # to equip, or 'x' to exit.");
-    refresh(); // Show the inventory menu
+    refresh();
 
     int ch;
     while ((ch = getch())) {
         if (ch == 'x' || ch == 'X') {
-            return -1; // Exit
+            return -1;
         }
         if (ch >= '1' && ch <= ('0' + player->inventoryCount)) {
             int choice = ch - '0'; // Convert char to int
             if (choice > 0 && choice <= player->inventoryCount) {
-                 // Check if item at choice-1 is valid (not NULL)
-                if (player->inventory[choice - 1] != NULL) {
+                if (player->inventory[choice - 1] != NULL) { // Check if item at choice-1 is valid
                     return choice - 1; // Return 0-indexed slot
                 }
             }
         }
-        // Optional: Add a small error message for invalid input before looping again
         mvprintw(y_pos + box_height - 3, x_pos + 1, "Invalid selection. Try again.    ");
-        mvprintw(y_pos + box_height - 2, x_pos + 1, "Enter # to equip, or 'x' to exit."); // Reprint prompt
+        mvprintw(y_pos + box_height - 2, x_pos + 1, "Enter # to equip, or 'x' to exit.");
         refresh();
     }
     return -1; // Should not be reached if loop is structured well

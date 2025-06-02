@@ -22,7 +22,7 @@ Level * createLevel(const int level, Player * user)
     placePlayer((const Room **)newLevel->rooms, newLevel->user);
 
     /* Set up the objects in the level */
-    newLevel->items = malloc(sizeof(Item *) * MAX_ITEMS_PER_LEVEL); // Use MAX_ITEMS_PER_LEVEL
+    newLevel->items = malloc(sizeof(Item *) * MAX_ITEMS_PER_LEVEL);
     newLevel->numberOfItems = generateItems(newLevel->level, newLevel->items);
     placeItems((const Room **)newLevel->rooms, newLevel->items, newLevel->numberOfItems);
 
