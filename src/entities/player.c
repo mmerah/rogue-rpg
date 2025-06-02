@@ -1,5 +1,7 @@
 #include "rogue.h"
 #include "player.h"
+#include <stdio.h>  // For fprintf
+#include <stdlib.h> // For malloc, free, NULL (though often via rogue.h)
 
 Player * playerSetUp()
 {
@@ -36,42 +38,57 @@ Player * playerSetUp()
 Position * handleInput(const int input, Player * user)
 {
     Position * newPosition;
+
+    if (user == NULL || user->position == NULL) {
+        fprintf(stderr, "ERROR: handleInput called with NULL user or user->position.\n");
+        // Attempt to allocate and return a fallback position to prevent caller from crashing on NULL.
+        // However, the caller (levelLoop) should ideally check for NULL return.
+        newPosition = malloc(sizeof(Position));
+        if (newPosition == NULL) {
+            fprintf(stderr, "ERROR: Failed to allocate memory for newPosition in handleInput (user/user->position was NULL).\n");
+            return NULL; // Critical failure, cannot even return a fallback.
+        }
+        newPosition->y = 0; // Fallback y position
+        newPosition->x = 0; // Fallback x position
+        return newPosition; // Return fallback position
+    }
+
     newPosition = malloc(sizeof(Position));
+    if (newPosition == NULL) {
+        fprintf(stderr, "ERROR: Failed to allocate memory for newPosition in handleInput.\n");
+        return NULL; // Critical failure
+    }
     
+    // Default to current position initially
+    newPosition->y = user->position->y;
+    newPosition->x = user->position->x;
+
     switch(input)
     {
-        /* Move Up */
-        case 'w':
-        case 'W':
+        case 'w': case 'W':
             newPosition->y = user->position->y - 1;
-            newPosition->x = user->position->x;
+            // newPosition->x = user->position->x; // Already set by default
             break;
         
-        /* Move down */
-        case 's':
-        case 'S':
+        case 's': case 'S':
             newPosition->y = user->position->y + 1;
-            newPosition->x = user->position->x;
+            // newPosition->x = user->position->x; // Already set by default
             break;
 
-        /* Move left */
-        case 'a':
-        case 'A':
-            newPosition->y = user->position->y;
+        case 'a': case 'A':
+            // newPosition->y = user->position->y; // Already set by default
             newPosition->x = user->position->x - 1;
             break;
 
-        /* Move right */
-        case 'd':
-        case 'D':
-            newPosition->y = user->position->y;
+        case 'd': case 'D':
+            // newPosition->y = user->position->y; // Already set by default
             newPosition->x = user->position->x + 1;
             break;
 
         default:
+            // If input is not recognized, newPosition remains as player's current position (set by default)
             break;
     }
-
     return newPosition;
 }
 

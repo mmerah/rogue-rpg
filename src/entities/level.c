@@ -9,8 +9,18 @@ Level * createLevel(const int level, Player * user)
 {
     Level * newLevel;
     newLevel = malloc(sizeof(Level));
+    if (newLevel == NULL) {
+        fprintf(stderr, "ERROR: Failed to allocate memory for Level struct in createLevel.\n");
+        return NULL;
+    }
 
     /* Basic level creation */
+    // Initialize pointers to NULL before allocation attempts, for safer cleanup
+    newLevel->tiles = NULL;
+    newLevel->rooms = NULL;
+    newLevel->items = NULL;
+    newLevel->monsters = NULL; // Though monsters are allocated in addMonsters, good practice
+
     newLevel->level = level;
     newLevel->numberOfRooms = 6;
     newLevel->rooms = roomsSetUp();
@@ -23,6 +33,36 @@ Level * createLevel(const int level, Player * user)
 
     /* Set up the objects in the level */
     newLevel->items = malloc(sizeof(Item *) * MAX_ITEMS_PER_LEVEL);
+    if (newLevel->items == NULL) {
+        fprintf(stderr, "ERROR: Failed to allocate memory for newLevel->items in createLevel.\n");
+        // Attempt to free previously allocated memory for this newLevel
+        if (newLevel->tiles != NULL) {
+            for (int y = 0; y < MAX_HEIGHT; y++) { // MAX_HEIGHT from rogue.h
+                free(newLevel->tiles[y]);
+            }
+            free(newLevel->tiles);
+        }
+        if (newLevel->rooms != NULL) {
+            // roomsSetUp allocates rooms[x] = createRoom(...). createRoom mallocs Room.
+            for (int i = 0; i < newLevel->numberOfRooms; i++) {
+                if (newLevel->rooms[i] != NULL) {
+                    // If Room struct itself contains malloced members (e.g. doors array in Room struct),
+                    // a proper freeRoom(newLevel->rooms[i]) function would be ideal.
+                    // Assuming Room's members like 'doors' are freed if createRoom fails or in a dedicated freeRoom.
+                    // For now, freeing the Room struct itself.
+                    if(newLevel->rooms[i]->doors != NULL) { // createRoom also mallocs doors
+                        free(newLevel->rooms[i]->doors);
+                    }
+                    free(newLevel->rooms[i]);
+                }
+            }
+            free(newLevel->rooms);
+        }
+        // newLevel->user is passed in, not allocated here.
+        // newLevel->monsters is allocated in addMonsters, which is called later.
+        free(newLevel);
+        return NULL;
+    }
     newLevel->numberOfItems = generateItems(newLevel->level, newLevel->items);
     placeItems((const Room **)newLevel->rooms, newLevel->items, newLevel->numberOfItems);
 
@@ -153,7 +193,20 @@ int checkPosition(Position * newPosition, Level * level)
 {
     Player * user;
     Monster * monster;
-    Item * item;
+    // Item * item; // Declared later as item_from_level
+
+    if (level == NULL) {
+        fprintf(stderr, "ERROR: checkPosition called with NULL level.\n");
+        return -1;
+    }
+    if (level->user == NULL) {
+        fprintf(stderr, "ERROR: level->user is NULL in checkPosition.\n");
+        return -1;
+    }
+    if (newPosition == NULL) {
+        fprintf(stderr, "ERROR: checkPosition called with NULL newPosition.\n");
+        return -1;
+    }
     user = level->user;
 
     /* Check if a move on new coordinates is posible */
@@ -176,8 +229,12 @@ int checkPosition(Position * newPosition, Level * level)
             }
             break;
         case '=':
+            if (level->items == NULL) {
+                fprintf(stderr, "ERROR: level->items is NULL when trying to get item in checkPosition.\n");
+                break;
+            }
             Item * item_from_level = getItemAt(newPosition, level->items, level->numberOfItems);
-            if (item_from_level != NULL) { // Ensure item exists before trying to use it
+            if (item_from_level != NULL) {
                 char itemName[256];
                 strcpy(itemName, item_from_level->string); // Copy name
                 ItemType typeOfPickedItem = item_from_level->type; // Store type before potential free
