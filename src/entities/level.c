@@ -176,20 +176,32 @@ int checkPosition(Position * newPosition, Level * level)
             }
             break;
         case '=':
-            item = getItemAt(newPosition, level->items, level->numberOfItems);
-            if (item != NULL) { // Ensure item exists before trying to use it
+            Item * item_from_level = getItemAt(newPosition, level->items, level->numberOfItems);
+            if (item_from_level != NULL) { // Ensure item exists before trying to use it
                 char itemName[256];
-                strcpy(itemName, item->string); // Copy name before itemPickManagement might free it (for potions)
+                strcpy(itemName, item_from_level->string); // Copy name
+                ItemType typeOfPickedItem = item_from_level->type; // Store type before potential free
 
-                itemPickManagement(user, item); // Handles item effect, inventory, and notPicked for non-potions
+                itemPickManagement(user, item_from_level); // Handles item effect, inventory, and notPicked for non-potions
 
-                // For potions, item is freed in itemPickManagement. For others, it's added to inventory.
-                // item->notPicked is set to 0 within itemPickManagement for WEAPON_TYPE, ARMOR_TYPE, RING_TYPE.
-                // For POTION_TYPE, item->notPicked is also set to 0 before being freed.
+                // For potions, item_from_level is now a dangling pointer as it's freed in itemPickManagement.
+                // For other items, it was added to inventory.
 
                 char message[300];
-                sprintf(message, "Picked up %s.", itemName);
+                snprintf(message, sizeof(message), "Picked up %s.", itemName); // Use snprintf for safety
                 addMessageToLog(message, level->messages);
+
+                // If item was not a potion, it was added to inventory.
+                // Nullify its pointer in level->items to prevent double free by destroyLevel
+                // and to ensure it's not accidentally interacted with again on the map.
+                if (typeOfPickedItem != POTION_TYPE) {
+                    for (int i = 0; i < level->numberOfItems; i++) {
+                        if (level->items[i] == item_from_level) {
+                            level->items[i] = NULL;
+                            break;
+                        }
+                    }
+                }
             }
             break;
         default:
