@@ -14,4 +14,7 @@
 
 #define MAX_ITEMS 25
 
+#define MESSAGE_SIZE 30
+#define EVENT_LOG_SIZE 10
+
 #endif /* ROGUE_H */

@@ -15,6 +15,7 @@ Player * playerSetUp()
     newPlayer->numberItems = 0;
     newPlayer->maxHealth = 20;
     newPlayer->playerLevel = 1;
+    newPlayer->detectionRange = 10;
 
     /* Give player starting weapon */
     newPlayer->items[newPlayer->numberItems] = createSword(1, 20);
@@ -78,4 +79,27 @@ void drawPlayer(const Player * player)
 {
     mvprintw(player->position->y, player->position->x, "@");
     move(player->position->y, player->position->x);
+}
+
+void itemPickManagement(Player * user, Item * item)
+{
+    switch (item->type)
+    {
+        case WEAPON_TYPE:
+            break;
+        
+        case ARMOR_TYPE:
+            break;
+
+        case RING_TYPE:
+            break;
+
+        case POTION_TYPE:
+            user->health += item->item.potion->healing;
+            if (user->health > user->maxHealth)
+            {
+                user->health = user->maxHealth;
+            }
+            break;
+    }    
 }

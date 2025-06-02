@@ -5,7 +5,7 @@ void drawItem(Item * item)
 {
     if (item->notPicked)
     {
-        mvprintw(item->position->y, item->position->x, "P");
+        mvprintw(item->position->y, item->position->x, "=");
     }
 }
 

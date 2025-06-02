@@ -39,6 +39,13 @@ void screenSetUp();
 void printGameHub(const Level * level);
 
 /**
+ * @brief Print the game log
+ * 
+ * @param level Informations on the level
+ */
+void printGameLog(Level * level);
+
+/**
  * @brief Print the inventory of the player
  * 
  * @param player Informations on the player
@@ -54,6 +61,21 @@ void printGameOver(void);
  * @brief Print the next level screen
  */
 void printNextLevelScreen(void);
+
+/**
+ * @brief Update the event log 
+ * 
+ * @param buffer Current log
+ */
+void updateLogBuffer(char buffer[EVENT_LOG_SIZE][MESSAGE_SIZE]);
+
+/**
+ * @brief Add a message to the log
+ * 
+ * @param message Message to be added
+ * @param buffer Current log
+ */
+void addMessageToLog(char * message, char buffer[EVENT_LOG_SIZE][MESSAGE_SIZE]);
 
 /******************
  * COMBAT FUNCTIONS

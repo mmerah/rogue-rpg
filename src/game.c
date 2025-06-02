@@ -3,11 +3,12 @@
 #include "level.h"
 #include "utils.h"
 
-void render(const Level * level)
+void render(Level * level)
 {
     /* Redraw the level */
     clear();
     printGameHub(level);
+    printGameLog(level);
     drawLevel(level);
 }
 
