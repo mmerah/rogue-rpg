@@ -54,7 +54,7 @@ void printGameLog(Level * level)
     mvprintw(26, 50, "Game Log: ");
     for (int i = 0; i < EVENT_LOG_SIZE; i++)
     {
-        mvprintw(27 + i, 50, level->messages[i]);
+        mvprintw(27 + i, 50, "%s", level->messages[i]);
     }
     updateLogBuffer(level->messages);
 }

@@ -183,7 +183,7 @@ void drawMonster(const Monster * monster)
 {
     if (monster->alive)
     {
-        mvprintw(monster->position->y, monster->position->x, monster->string);
+        mvprintw(monster->position->y, monster->position->x, "%s", monster->string);
     }
 }
 

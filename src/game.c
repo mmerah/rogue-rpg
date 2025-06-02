@@ -63,20 +63,20 @@ void gameLoop(Game * game)
 
                     if (itemToEquip->type == WEAPON_TYPE) {
                         level->user->equippedWeapon = itemToEquip->item.weapon;
-                        sprintf(message, "Equipped %s.", itemToEquip->string);
+                        snprintf(message, sizeof(message), "Equipped %s.", itemToEquip->string);
                         addMessageToLog(message, level->messages);
                     } else if (itemToEquip->type == ARMOR_TYPE) {
                         level->user->equippedArmor = itemToEquip->item.armor;
-                        sprintf(message, "Equipped %s.", itemToEquip->string);
+                        snprintf(message, sizeof(message), "Equipped %s.", itemToEquip->string);
                         addMessageToLog(message, level->messages);
                     } else {
-                        sprintf(message, "Cannot equip %s (not a weapon or armor).", itemToEquip->string);
+                        snprintf(message, sizeof(message), "Cannot equip %s (not a weapon or armor).", itemToEquip->string);
                         addMessageToLog(message, level->messages);
                     }
                 } else {
                     // This case should ideally not be reached if getInventorySelection is robust
                     char errorMessage[100];
-                    sprintf(errorMessage, "Invalid item selection: slot %d.", selectedSlot);
+                    snprintf(errorMessage, sizeof(errorMessage), "Invalid item selection: slot %d.", selectedSlot);
                     addMessageToLog(errorMessage, level->messages);
                 }
             }

@@ -20,7 +20,7 @@ int mainMenu(int numberItems, char * choices[])
     int i, c;
     int value;
     MENU * menu;
-    ITEM ** items = malloc(sizeof(**items) * numberItems);
+    ITEM ** items = malloc(sizeof(ITEM *) * (numberItems + 1));
     ITEM * current;
 
     for (i = 0; i < numberItems; i++)
